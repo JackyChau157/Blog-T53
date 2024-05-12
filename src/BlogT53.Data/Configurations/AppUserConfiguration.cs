@@ -1,5 +1,4 @@
-﻿using BlogT53.Core.Domain.Content;
-using BlogT53.Core.Domain.Identity;
+﻿using BlogT53.Core.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
