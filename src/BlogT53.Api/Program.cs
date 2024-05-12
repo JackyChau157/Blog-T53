@@ -1,3 +1,4 @@
+using BlogT53.Api;
 using BlogT53.Core.Domain.Identity;
 using BlogT53.Data.EF;
 using Microsoft.AspNetCore.Identity;
@@ -57,5 +58,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Seeding data
+app.MigrateDatabase();
 
 app.Run();
