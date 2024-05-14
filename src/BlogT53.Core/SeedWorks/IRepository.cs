@@ -2,7 +2,7 @@
 
 namespace BlogT53.Core.SeedWorks
 {
-    public interface IRepositoty<T, Key> where T : class
+    public interface IRepository<T, Key> where T : class
     {
         Task<T> GetByIdAsync(Key id);
 

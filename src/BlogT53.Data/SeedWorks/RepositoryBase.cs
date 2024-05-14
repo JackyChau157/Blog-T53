@@ -5,12 +5,14 @@ using System.Linq.Expressions;
 
 namespace BlogT53.Data.SeedWorks
 {
-    public class RepositoryBase<T, Key> : IRepositoty<T, Key> where T : class
+    public class RepositoryBase<T, Key> : IRepository<T, Key> where T : class
     {
+        protected readonly BlogT53Context _context;
         private readonly DbSet<T> _dbSet;
 
         public RepositoryBase(BlogT53Context context)
         {
+            _context = context;
             _dbSet = context.Set<T>();
         }
 
