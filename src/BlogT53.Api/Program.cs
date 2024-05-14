@@ -1,6 +1,8 @@
 using BlogT53.Api;
 using BlogT53.Core.Domain.Identity;
+using BlogT53.Core.SeedWorks;
 using BlogT53.Data.EF;
+using BlogT53.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +39,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
+
+// DI repository/UnitOfWork
+builder.Services.AddScoped(typeof(IRepositoty<,>), typeof(RepositoryBase<,>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
