@@ -1,19 +1,54 @@
 ﻿using BlogT53.Core.Domain.Content;
+using BlogT53.Core.Models.Content;
+using BlogT53.Core.Models;
 using BlogT53.Core.Repositories;
 using BlogT53.Data.EF;
 using BlogT53.Data.SeedWorks;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace BlogT53.Data.Repositories
 {
     public class PostRepository : RepositoryBase<Post, Guid>, IPostRepository
     {
-        public PostRepository(BlogT53Context context) : base(context)
+        private readonly IMapper _mapper;
+
+        public PostRepository(BlogT53Context context, IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public Task<List<Post>> GetPopularPostsAsync(int count)
         {
-            throw new NotImplementedException();
+            return _context.Posts.OrderByDescending(x => x.ViewCount).Take(count).ToListAsync();
+        }
+
+        public async Task<PagedResult<PostInListDto>> GetPostsPagingAsync(string keyword, Guid? categoryId, int pageIndex = 1, int pageSize = 10)
+        {
+            var query = _context.Posts.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(x => x.Name.Contains(keyword));
+            }
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(x => x.CategoryId == categoryId.Value);
+            }
+
+            var totalRow = await query.CountAsync();
+
+            query = query.OrderByDescending(x => x.DateCreated)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+
+            return new PagedResult<PostInListDto>
+            {
+                Results = await _mapper.ProjectTo<PostInListDto>(query).ToListAsync(),
+                CurrentPage = pageIndex,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
         }
     }
 }

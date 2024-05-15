@@ -1,5 +1,6 @@
 using BlogT53.Api;
 using BlogT53.Core.Domain.Identity;
+using BlogT53.Core.Models.Content;
 using BlogT53.Core.SeedWorks;
 using BlogT53.Data.EF;
 using BlogT53.Data.Repositories;
@@ -59,6 +60,8 @@ foreach (var service in services)
         builder.Services.Add(new ServiceDescriptor(directInterface, service, ServiceLifetime.Scoped));
     }
 }
+
+builder.Services.AddAutoMapper(typeof(PostInListDto));
 
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
