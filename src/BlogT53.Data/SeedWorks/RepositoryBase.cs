@@ -16,7 +16,7 @@ namespace BlogT53.Data.SeedWorks
             _dbSet = context.Set<T>();
         }
 
-        public async void AddAsync(T entity)
+        public async void Add(T entity)
         {
             await _dbSet.AddAsync(entity);
         }

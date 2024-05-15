@@ -10,7 +10,7 @@ namespace BlogT53.Core.SeedWorks
 
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
 
-        void AddAsync(T entity);
+        void Add(T entity);
 
         void AddRange(IEnumerable<T> entities);
 
