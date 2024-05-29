@@ -1,4 +1,6 @@
 using BlogT53.Api;
+using BlogT53.Api.Services;
+using BlogT53.Core.ConfigOptions;
 using BlogT53.Core.Domain.Identity;
 using BlogT53.Core.Models.Content;
 using BlogT53.Core.SeedWorks;
@@ -48,6 +50,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Authen, author DI
+builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 // DI Business services and repositories
 var services = typeof(PostRepository).Assembly.GetTypes()
     .Where(x => x.GetInterfaces().Any(i => i.Name == typeof(IRepository<,>).Name)
@@ -63,7 +71,10 @@ foreach (var service in services)
     }
 }
 
+// Auto mapper
 builder.Services.AddAutoMapper(typeof(PostInListDto));
+// Add Config class
+builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
 
 //Default config for ASP.NET Core
 builder.Services.AddControllers();
