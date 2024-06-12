@@ -2,9 +2,9 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace BlogT53.Api
+namespace BlogT53.Api.Filters
 {
-    public class SwaggerNullableParameterFilter  : IParameterFilter
+    public class SwaggerNullableParameterFilter : IParameterFilter
     {
         public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
         {
