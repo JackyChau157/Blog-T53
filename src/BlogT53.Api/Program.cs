@@ -16,6 +16,13 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
+var BlogT53CorsPolicy = "BlogT53CorsPolicy";
+
+builder.Services.AddCors(o => o.AddPolicy(BlogT53CorsPolicy, builder =>
+    builder.AllowAnyHeader()
+    .WithOrigins(configuration["AllowedOrigins"])
+    .AllowCredentials()
+));
 
 // Add services to the container.
 
@@ -109,6 +116,7 @@ if (app.Environment.IsDevelopment())
         c.DisplayRequestDuration();
     });
 }
+app.UseCors(BlogT53CorsPolicy);
 
 app.UseHttpsRedirection();
 
