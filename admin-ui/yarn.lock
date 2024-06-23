@@ -5199,6 +5199,11 @@ npmlog@^6.0.0:
     gauge "^4.0.3"
     set-blocking "^2.0.0"
 
+nswag@^14.0.8:
+  version "14.0.8"
+  resolved "https://registry.yarnpkg.com/nswag/-/nswag-14.0.8.tgz#ac23b38c5eb469078192028bb77fff76b9315702"
+  integrity sha512-nj/+e3xZx2ToxbUreEQoQ7iCTK/ZDnBsF50ZPbQJ7txTJzUV5OG4dbzA9SnBw6xpo0Sn7j4KN4E1iQTxYqgcKQ==
+
 nth-check@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-2.1.1.tgz#c9eab428effce36cd6b92c924bdb000ef1f1ed1d"
